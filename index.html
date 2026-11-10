@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Cuántas horas te cuesta tu remesa?</title>
+<meta name="description" content="Calcula cuántas horas de trabajo por año se llevan las comisiones y el tipo de cambio al enviar dinero de España a Colombia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Remesas · España → Colombia</p>
+    <h1>¿Cuántas horas de trabajo te cuesta enviar dinero a casa?</h1>
+    <p class="lede">Ingresa cuánto envías, con qué frecuencia y cuánto ganas por hora. La herramienta suma la comisión y el margen del tipo de cambio que cobran los servicios relevados por el Banco Mundial en esta ruta.</p>
+  </header>
+
+  <section class="panel inputs" aria-label="Tus datos">
+    <label for="monto">Cuánto envías cada vez
+      <span class="field"><input id="monto" type="number" inputmode="decimal" min="10" step="10" value="140"><span>€</span></span>
+      <span class="hint">Ejemplo: 140 € (el monto que usa el Banco Mundial)</span>
+    </label>
+    <label for="veces">Envíos por año
+      <span class="field"><input id="veces" type="number" inputmode="numeric" min="1" step="1" value="12"><span>al año</span></span>
+      <span class="hint">12 = una vez por mes</span>
+    </label>
+    <label for="hora">Lo que ganas por hora
+      <span class="field"><input id="hora" type="number" inputmode="decimal" min="1" step="0.01" value="9.36"><span>€/h</span></span>
+      <span class="hint">9,36 € = salario mínimo de España 2026</span>
+    </label>
+  </section>
+
+  <section class="panel result" aria-live="polite">
+    <p class="eyebrow">Con un servicio típico de esta ruta (mediana)</p>
+    <div class="big" id="avgH">8,3 <small>horas al año</small></div>
+    <p class="sentence" id="sentence"></p>
+    <div class="range">
+      <div class="stat lo"><div class="k">Servicio más barato relevado</div><div class="v" id="minH">–</div></div>
+      <div class="stat"><div class="k">Promedio publicado por el Banco Mundial</div><div class="v" id="medH">–</div></div>
+      <div class="stat hi"><div class="k">Servicio más caro relevado</div><div class="v" id="maxH">–</div></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Cómo se reparten los 14 precios relevados</h2>
+    <p class="hint" style="margin:0">Cada punto es un servicio de la ruta, en horas de trabajo por año con tus datos. La línea marca la mediana: la mitad de los servicios cuesta menos y la otra mitad, más.</p>
+    <div class="chartbox"><svg id="strip" width="100%" height="130" role="img" aria-label="Distribución de horas por servicio"></svg></div>
+    <div class="legend"><span><i style="background:var(--online)"></i>Online</span><span><i style="background:var(--agente)"></i>Agente de envíos</span><span><i style="background:var(--banco)"></i>Sucursal bancaria</span></div>
+  </section>
+
+  <section class="notes">
+    <p><b>Cómo se calcula:</b> costo de cada envío = comisión + margen del tipo de cambio × monto. Horas al año = costo por envío × envíos por año ÷ lo que ganas por hora.</p>
+    <p><b>Por qué la mediana:</b> el promedio simple del Banco Mundial pesa igual a todos los servicios, y uno solo muy caro (un envío desde la sucursal de un banco) lo empuja hacia arriba. La mediana describe mejor lo que cuesta un envío típico.</p>
+    <p><b>Datos:</b> Banco Mundial, <a href="https://remittanceprices.worldbank.org/corridor/ES/CO" target="_blank" rel="noopener">Remittance Prices Worldwide</a>, corredor España → Colombia, relevado del 2 de agosto al 9 de septiembre de 2025 (22 registros, 14 precios distintos). Las comisiones se midieron para envíos de 140 €; para otros montos el resultado es una estimación, porque algunos servicios cambian su comisión según el monto.</p>
+    <p class="never">Esta herramienta no recomienda ningún servicio ni dice cuál es el más seguro. Muestra lo que costaba cada uno cuando se relevó; antes de enviar, compara cuántos pesos recibe tu familia con cada opción.</p>
+  </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
